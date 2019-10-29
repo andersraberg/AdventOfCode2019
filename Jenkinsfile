@@ -1,7 +1,7 @@
 node {
     stage('Build') {
         dir('AdventOfCode2019') {
-            sh './gradlew build'
+            sh 'ls'
         }
     }
     
