@@ -1,0 +1,20 @@
+plugins {
+    id "java"
+    id "application"
+    id "eclipse"
+    id "org.sonarqube" version "2.7"
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
+
+mainClassName = 'se.anders_raberg.adventofcode2019.DaysMain'
+
+applicationDistribution.from("$projectDir/inputs") {
+    into "inputs"
+}
