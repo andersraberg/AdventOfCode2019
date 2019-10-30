@@ -1,7 +1,7 @@
 node {
     git 'https://github.com/andersraberg/AdventOfCode2019.git'
     stage('Build') {
-        sh './gradlew build'
+        sh './gradlew clean build'
     }
     
     stage('Sonar') {
@@ -10,11 +10,12 @@ node {
         }
     }
 
+    stage('Report') {
+        junit 'build/test-results/**/*.xml'
+    }
+
     stage('Run') {
         sh './gradlew run'
     }
     
-    stage('Report') {
-        junit 'build/test-results/**/*.xml'
-    }
 }
