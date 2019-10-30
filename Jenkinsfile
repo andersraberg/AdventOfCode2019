@@ -15,6 +15,6 @@ node {
     }
     
     stage('Report') {
-        junit 'build/reports/**/*.xml'
+        junit 'build/test-results/**/*.xml'
     }
 }
