@@ -1,7 +1,7 @@
 node {
     git 'https://github.com/andersraberg/AdventOfCode2019.git'
     stage('Build') {
-        sh '/gradlew build
+        sh './gradlew build'
     }
     
     stage('Sonar') {
