@@ -1,21 +1,20 @@
 node {
+    git 'https://github.com/andersraberg/AdventOfCode2019.git'
     stage('Build') {
-        dir('AdventOfCode2019') {
-            sh 'ls'
-        }
+        sh '/gradlew build
     }
     
     stage('Sonar') {
-        dir('AdventOfCode2019') {
-	    withSonarQubeEnv() { // Will pick the global server connection you have configured
-                sh './gradlew sonarqube -Dsonar.projectKey=AdventofCode2019'
-            }
+        withSonarQubeEnv() {
+            sh './gradlew sonarqube -Dsonar.projectKey=AdventofCode2019'
         }
     }
 
     stage('Run') {
-        dir('AdventOfCode2019') {
-            sh './gradlew run'
-        }
+        sh './gradlew run'
+    }
+    
+    stage('Report') {
+        junit 'unitTests'
     }
 }
