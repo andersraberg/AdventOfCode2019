@@ -4,6 +4,13 @@ node {
         sh './gradlew clean build'
     }
     
+    stage('Code coverage') {
+        sh './gradlew jacocoTestReport'
+        jacoco( 
+            execPattern: 'build/jacoco/*.exec',
+        )
+    }
+
     stage('Sonar') {
         withSonarQubeEnv() {
             sh './gradlew sonarqube -Dsonar.projectKey=AdventofCode2019'
