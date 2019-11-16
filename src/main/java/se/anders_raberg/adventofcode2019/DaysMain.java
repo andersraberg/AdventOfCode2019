@@ -1,11 +1,9 @@
 package se.anders_raberg.adventofcode2019;
 
-import java.util.logging.Logger;
+import java.io.IOException;
 
 public class DaysMain {
-    private static final Logger LOGGER = Logger.getLogger(DaysMain.class.getName());
-
-    public static void main(String[] args) {
-        LOGGER.info("Waiting for the start");
+    public static void main(String[] args) throws IOException {
+        Day1.run();
     }
 }
