@@ -14,14 +14,21 @@ public class Day1 {
     }
 
     public static void run() throws IOException {
-        List<Integer> changes = Files.readAllLines(Paths.get("inputs/input1.txt")).stream() //
+        List<Integer> modules = Files.readAllLines(Paths.get("inputs/input1.txt")).stream() //
                 .map(Integer::valueOf) //
                 .collect(Collectors.toList());
 
         // Part 1
-        int sum = changes.stream().reduce(0, Integer::sum);
+        LOGGER.info(() -> String.format("Part 1: Fuel consumption: %s",
+                modules.stream().mapToInt(i -> (int) (i / 3.0) - 2).sum()));
 
-        // Results
-        LOGGER.info(() -> String.format("Part 1: Sum: %s", sum));
+        // Part 2
+        LOGGER.info(() -> String.format("Part 2: Fuel consumption: %s",
+                modules.stream().mapToInt(Day1::recursiveConsumption).sum()));
+    }
+
+    private static int recursiveConsumption(int unit) {
+        int consumption = (int) (unit / 3.0) - 2;
+        return consumption < 0 ? 0 : consumption + recursiveConsumption(consumption);
     }
 }
