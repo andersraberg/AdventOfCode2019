@@ -18,7 +18,7 @@ public class Day10 {
     }
 
     public static void run() throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("inputs/input10q.txt")).stream().collect(Collectors.toList());
+        List<String> lines = Files.readAllLines(Paths.get("inputs/input10.txt")).stream().collect(Collectors.toList());
 
         List<Pair<Double, Double>> coordinates = new ArrayList<>();
 
