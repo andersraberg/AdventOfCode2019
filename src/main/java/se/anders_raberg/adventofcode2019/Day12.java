@@ -1,9 +1,16 @@
 package se.anders_raberg.adventofcode2019;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+import com.google.common.math.LongMath;
+
+import se.anders_raberg.adventofcode2019.utilities.Pair;
 
 public class Day12 {
     private static final Logger LOGGER = Logger.getLogger(Day12.class.getName());
@@ -100,6 +107,52 @@ public class Day12 {
         }
 
         LOGGER.info(String.format("Part 1 : Energy : %s", moons.stream().mapToInt(Moon::getEnergy).sum()));
+
+        moons = List.of(IO, GANYMEDE, EUROPA, CALLISTO);
+        Optional<Integer> xCycle = Optional.empty();
+        Optional<Integer> yCycle = Optional.empty();
+        Optional<Integer> zCycle = Optional.empty();
+
+        Set<List<Pair<Integer, Integer>>> xSet = new HashSet<>();
+        Set<List<Pair<Integer, Integer>>> ySet = new HashSet<>();
+        Set<List<Pair<Integer, Integer>>> zSet = new HashSet<>();
+
+        int steps = 0;
+        while (xCycle.isEmpty() || yCycle.isEmpty() || zCycle.isEmpty()) {
+            moons = performStep(moons);
+
+            if (!xSet.add(getXCoords(moons)) && xCycle.isEmpty()) {
+                xCycle = Optional.of(steps);
+            }
+
+            if (!ySet.add(getYCoords(moons)) && yCycle.isEmpty()) {
+                yCycle = Optional.of(steps);
+            }
+
+            if (!zSet.add(getZCoords(moons)) && zCycle.isEmpty()) {
+                zCycle = Optional.of(steps);
+            }
+
+            steps++;
+        }
+
+        LOGGER.info("Part 2: Steps : " + lcm(lcm(xCycle.get(), yCycle.get()), zCycle.get()));
+    }
+
+    private static List<Pair<Integer, Integer>> getXCoords(List<Moon> moons) {
+        return moons.stream().map(m -> new Pair<>(m.xPos(), m.xVel())).collect(Collectors.toList());
+    }
+
+    private static List<Pair<Integer, Integer>> getYCoords(List<Moon> moons) {
+        return moons.stream().map(m -> new Pair<>(m.yPos(), m.yVel())).collect(Collectors.toList());
+    }
+
+    private static List<Pair<Integer, Integer>> getZCoords(List<Moon> moons) {
+        return moons.stream().map(m -> new Pair<>(m.zPos(), m.zVel())).collect(Collectors.toList());
+    }
+
+    private static long lcm(long n1, long n2) {
+        return (n1 == 0 || n2 == 0) ? 0 : Math.abs(n1 * n2) / LongMath.gcd(n1, n2);
     }
 
     private static List<Moon> performStep(List<Moon> moons) {
