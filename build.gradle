@@ -4,6 +4,7 @@ plugins {
     id "eclipse"
     id "jacoco"
     id "org.sonarqube" version "2.7"
+//    id "com.autonomousapps.dependency-analysis"  version "0.54.0"
 }
 
 repositories {
