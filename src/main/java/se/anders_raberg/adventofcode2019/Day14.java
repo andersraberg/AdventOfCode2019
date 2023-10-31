@@ -30,7 +30,7 @@ public class Day14 {
 
     public static void run() throws IOException {
 
-        Files.readAllLines(Paths.get("inputs/input14x.txt")).stream().forEach(line -> {
+        Files.readAllLines(Paths.get("inputs/input14.txt")).stream().forEach(line -> {
             Matcher m1 = PATTERN_1.matcher(line);
             if (m1.matches()) {
                 String outputType = m1.group(3);
